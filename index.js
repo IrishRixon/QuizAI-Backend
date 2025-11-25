@@ -8,7 +8,7 @@ import connectDB from "./DB/connectDB.js"
 const app = express();
 
 const corsOpstions = {
-    origin: "*",
+    origin: "https://quizai-irishrixon.netlify.app",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS",
     preflightContinue: false,
     optionsSuccessStatus: 204

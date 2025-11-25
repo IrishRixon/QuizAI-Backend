@@ -37,14 +37,16 @@ export const storeQuestions = async (req, res) => {
     console.log("storing");
     try {
         const arr = req.body;
-
+        let result;
         for (let i = 0; i < arr.length; i++) {
-            await QuestionModel.create(arr[i])
+            result = await QuestionModel.create(arr[i])
         }
 
-        res.status(204);
+        console.log(result);
+        res.status(204).json({ mess: 'done' });
 
     } catch (err) {
+        console.log(err);
         res.status(404).json({ error: err });
     }
 }
@@ -56,7 +58,7 @@ export const getQuestionsToDB = async (req, res) => {
         const quest = [];
         const limiter = body.numberOfQuestions + 10;
 
-        const result = await QuestionModel.find({ category: { $in: body.selectedCategories } }).limit(limiter);
+        const result = await QuestionModel.find({ category: { $in: body.selectedCategories, difficulty: body.difficulty } }).limit(limiter);
 
         for (let i = 0; i < body.numberOfQuestions; i++) {
             const randomIndex = Math.floor(Math.random() * result.length);
